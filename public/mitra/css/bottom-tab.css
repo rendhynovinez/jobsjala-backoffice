@@ -1,0 +1,35 @@
+.bottomnavbar {
+  overflow: hidden;
+  background-color: #FFFFFF;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+
+  -webkit-box-shadow: 0px -4px 5px 0px rgba(217,217,217,1);
+-moz-box-shadow: 0px -4px 5px 0px rgba(217,217,217,1);
+box-shadow: 0px -4px 5px 0px rgba(217,217,217,1);
+}
+
+.bottomnavbar a {
+  float: left;
+  display: grid;
+  color: #BBBBBB;
+  text-align: center;
+  padding: 5px 14px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.bottomnavbar a:hover {
+  background: #f1f1f1;
+  color: #BBBBBB;
+}
+
+.bottomnavbar a.active {
+  background-color: transparent;
+  color: #BBBBBB;
+}
+
+.ic-bottomnav {
+  display: block;
+}

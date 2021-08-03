@@ -1,0 +1,483 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+ 
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+ 
+ html {
+    line-height: 1.8;
+    font-weight: normal;
+    color: rgba(0, 0, 0, 0.87);
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* map */
+
+.geocoder-control-input.leaflet-bar {
+    background: #fff !important;
+    min-width: 298px;
+    position: absolute;
+    top: 20px;
+    border: 1px solid #ddd !important;
+    border-radius: 8px;
+    min-height: 38px;
+    
+}
+
+.leaflet-control-zoom, .leaflet-control-attribution  {
+    display: none !important;
+   
+}
+
+
+
+/* end map */
+
+h6 {
+    font-size: 1.0rem;
+    line-height: 200%;
+
+}
+
+.btn, .btn-large, .btn-small, .btn-flat {
+    border: none;
+    border-radius: 8px;
+    display: inline-block;
+    height: 42px;
+    line-height: 42px;
+    padding: 0 16px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    -webkit-tap-highlight-color: transparent;
+    letter-spacing: normal;
+}
+
+.z-depth-1, nav, .card-panel, .card, .toast, .btn, .btn-large, .btn-small, .btn-floating, .dropdown-content, .collapsible, .sidenav {
+  -webkit-box-shadow: 0px 6px 15px -3px rgba(201,201,201,1);
+-moz-box-shadow: 0px 6px 15px -3px rgba(201,201,201,1);
+box-shadow: 0px 6px 15px -3px rgba(201,201,201,1);
+}
+
+nav .sidenav-trigger {
+    float: left;
+    position: relative;
+    z-index: 1;
+    height: 56px;
+    margin: 0px;
+}
+
+
+ #bg-blue-img {
+  background-image: linear-gradient(
+    rgba(34, 56, 135, 0.8), 
+    rgba(34, 56, 135, 0.95)
+    ),
+    /* your image */
+    url(../img/bg-log.jpg);
+  background-size: cover;
+  background-position: bottom right;
+  background-color: rgba(248, 247, 216, 0.7);
+}
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+	font-size: inherit;
+}
+
+
+.text-blue {
+  color: #223887;
+}
+
+.text-grey {
+  color: #AAAAAA;
+}
+
+.text-yellow {
+  color: #758100;
+}
+
+.text-red {
+  color: #CC2760;
+}
+
+.bg-white {
+  background: white ;
+}
+
+.bg-blue {
+  background: rgb(34,56,135);
+background: linear-gradient(45deg, rgba(34,56,135,1) 0%, rgba(0,132,231,1) 100%);
+}
+
+.bg-yellow{
+  background: #758100!important;
+}
+
+.bg-red {
+  background: #CC2760;
+  background-color: #CC2760 !important
+}
+
+
+.bold {
+  font-weight: bold;
+}
+
+.pvh-10 {
+  padding: 10vh 0;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.btn:hover, .btn-large:hover, .btn-small:hover {
+  background-color: #163FCF;
+}
+
+#nav-title {
+  font-size: 18px;
+  font-weight: bold;
+  padding-left: 15px;
+}
+
+.sidenav-trigger.right {
+  float: right !important;
+}
+
+#user-info {
+  font-weight: bold;
+  font-size: 14px;
+  color: #223887;
+}
+
+#user-info span {
+  vertical-align: top;
+  padding-left: 10px;
+}
+
+#user-notif {
+color:  #223887;
+}
+
+.logo-home {
+  width: 100%;
+}
+
+.mb-5 {
+  margin-bottom: 5px;
+}
+.text-right {
+  text-align: right;
+}
+
+#small-dates, #small-duration {
+  font-size: 11px;
+  font-weight: bold;
+}
+
+#activity-list {
+padding: 10px 0;
+}
+
+.gap {
+  padding: 10px 0;
+}
+
+.btn:focus, .btn-large:focus, .btn-small:focus, .btn-floating:focus {
+  background-color: #223887;
+}
+
+.font-11 {
+  font-size: 11px !important;
+}
+
+.card-panel {
+  -webkit-transition: -webkit-box-shadow .25s;
+  transition: -webkit-box-shadow .25s;
+  transition: box-shadow .25s;
+  transition: box-shadow .25s, -webkit-box-shadow .25s;
+  padding: 10px 20px;
+  margin: 0.5rem 0 1rem 0;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.cardh1 {
+  font-weight: bold;
+  color: #223887;
+  font-size: 16px;
+  display: inline-block;
+}
+
+.cardh1 span {
+  font-weight: bold;
+  color: #758100;
+  font-size: 14px;
+  display: block;
+}
+
+.p-5 {
+  padding:5px;
+}
+
+
+.tabs .tab a:hover, .tabs .tab a.active {
+  background-color: transparent;
+  color: #223887 !important;
+}
+
+.tabs .tab a {
+  color: #575757;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0 24px;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-transition: color .28s ease, background-color .28s ease;
+  transition: color .28s ease, background-color .28s ease;
+}
+
+.tabs .tab.disabled a, .tabs .tab.disabled a:hover {
+  color: #AAAAAA;
+  cursor: default;
+}
+
+.btn-small {
+  height: 22.4px;
+  line-height: 22.4px;
+  font-size: 13px;
+}
+
+.right-arrow.material-icons {
+  float: right;
+  color: #999;
+}
+
+.btn, .btn-large, .btn-small {
+  text-decoration: none;
+  color: #fff;
+  background-color: #223887;
+  text-align: center;
+  letter-spacing: .5px;
+  -webkit-transition: background-color .2s ease-out;
+  transition: background-color .2s ease-out;
+  cursor: pointer;
+}
+[type="radio"]:checked + span::after, [type="radio"].with-gap:checked + span::after {
+  background-color: #223887;
+
+}
+
+[type="radio"]:checked + span::after, [type="radio"].with-gap:checked + span::before, [type="radio"].with-gap:checked + span::after {
+  border: 2px solid #223887;
+}
+
+span.badge.new::after {
+  content: "" !important;
+}
+
+span.badge.new {
+  font-weight: 300;
+  font-size: 0.8rem;
+  color: #fff;
+  background-color: #26a69a;
+  border-radius: 100%;
+}
+
+span.badge {
+  min-width: 1.6rem;
+  padding: 0 6px;
+  margin-left: 14px;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 22px;
+  height: 24px;
+  color: #757575;
+  float: right;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+
+
+/* tabs */
+.tabs .tab {
+  text-align: center;
+  line-height: 48px;
+  text-transform: none;
+}
+
+
+.tabs .tab a:focus, .tabs .tab a:focus.active {
+  background-color: rgba(198, 223, 255, 0.2) !important;
+  outline: none;
+}
+
+.tabs .indicator {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background-color: #163FCF;
+  will-change: left, right;
+}
+
+.tabs {
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  height: 48px;
+  width: 100%;
+  background-color: #fff;
+  margin: 0 auto;
+  white-space: nowrap;
+}
+
+.mb-0 {
+  margin-bottom:0px !important;
+}
+
+.icon {
+  position: relative;
+  /* Adjust these values accordingly */
+  top: 5px;
+  left: 5px;
+}
+
+.pv2 {
+  padding: 2px 0;
+}
+.pv5 {
+  padding: 5px 0;
+}
+.pv10 {
+  padding: 10px 0;
+}
+span.top {
+  vertical-align: top;
+}
+
+.f12 {
+  font-size: 12px !important;
+}
+
+.f14 {
+  font-size: 14px !important;
+}
+
+.f22 {
+  font-size: 22px !important;
+}
+
+.pr-5 {
+  padding-right: 5px;
+}
+
+iframe {
+  width: 100%;
+
+}
+
+#fixedbutton {
+  position: fixed;
+  bottom: 0px;
+  right: 0px; 
+}
+
+i.center {
+  line-height: inherit;
+  font-size: 1.3rem;
+  vertical-align: top;
+  padding-right: 5px;
+}
+
+/* The Modal (background) */
+
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0px !important;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  max-height: 100%;
+  box-shadow: none !important;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border-bottom: 1px solid #e0e0e0;
+  width: 80%;
+}
+
+.modal .modal-footer {
+  border-radius: 0 0 2px 2px;
+  background-color: #f7f7f7;
+  padding: 4px 6px;
+  height: 56px;
+  width: 80%;
+  text-align: right;
+  margin: auto;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.pl10 {
+  padding-left: 10.5%;
+}
+
+#labelvaMitra {
+	display: block;
+	width: 100%;
+	padding: 20px 0 0;
+	font-weight: bold;
+	border-top: 1px solid #dcdcdc;
+	margin: 20px 0 0;
+}
+
+#vaMitra {
+	display: block;
+	width: 80%;
+	padding: 0;
+	font-weight: bold;
+	font-size: 18px;
+}
+
+#vaCopy {
+	display: block;
+	width: 20%;
+	text-align: right;
+	font-weight: bold;
+	font-size: 18px;
+}

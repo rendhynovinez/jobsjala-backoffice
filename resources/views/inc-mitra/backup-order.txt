@@ -1,0 +1,26 @@
+<script src="https://js.pusher.com/3.2/pusher.min.js"></script>
+    <script type="text/javascript"> 
+        // Enable pusher logging - don't include this in production
+        $( document ).ready(function() {
+          Pusher.logToConsole = true;
+        var pusher = new Pusher('8dccd075538e49c24305', {
+            cluster: 'ap1',
+            encrypted: true,
+            disableStats: true
+        });
+
+        var channel = pusher.subscribe('user.<?php echo $data->id ? $data->id : 0; ?>');
+        channel.bind('NewMessageNotification', function(data) {
+        alert(JSON.stringify(data));
+        document.write(data);
+
+        document.getElementById("demo").innerHTML = JSON.stringify(data);
+        });
+      });
+
+      
+      //NewMessageNotification
+       Echo.private('user.<?php echo $data->id ? $data->id : 0; ?>').listen('NewMessageNotification', data => alert(JSON.stringify(data)));
+
+    
+    </script>

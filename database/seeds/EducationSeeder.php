@@ -6,6 +6,7 @@ class EducationSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     * php artisan db:seed --class=EducationSeeder
      *
      * @return void
      */

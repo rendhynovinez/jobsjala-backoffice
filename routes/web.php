@@ -16,8 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 
 // Main Users
-// Route::get('/', 'frontProductController@index')->name('main');
-Route::get('/', 'CustomerLoginController@showLoginForm')->name('customer.loginform');
+Route::get('/', 'privacyController@welcome');
+Route::get('/privacy-policy', 'privacyController@index');
+Route::get('/login', 'CustomerLoginController@showLoginForm')->name('customer.loginform');
 Route::get('/product-user', 'frontProductController@withdata')->name('main');
 Route::get('customer/cart', 'frontProductController@cart')->middleware('auth:customer')->name('customer.cart');
 Route::get('customer/sukses_order', 'frontProductController@sukses_order')->middleware('auth:customer')->name('customer.sukses_order');

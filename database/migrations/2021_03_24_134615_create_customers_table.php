@@ -19,6 +19,8 @@ class CreateCustomersTable extends Migration
             $table->string('email', 150)->unique();
             $table->string('password', 200);
             $table->string('refferal_code', 100);
+            $table->string('is_group', 100);
+            $table->string('number_phone', 100);
             $table->string('permission', 10);
             $table->string('is_active', 10);
             $table->string('jobs_id', 100);

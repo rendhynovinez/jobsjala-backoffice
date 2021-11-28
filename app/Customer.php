@@ -22,11 +22,13 @@ class Customer  extends Authenticatable
       protected $fillable = [
         'username',
         'email',
+        'number_phone',
         'password',
         'refferal_code',
         'permission',
         'is_active',
         'jobs_id',
+        'is_group'
   ];
   
   protected $hidden = [

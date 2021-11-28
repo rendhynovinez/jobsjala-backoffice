@@ -37,6 +37,12 @@
                 </a>
           </li>
           <li class="nav-item">
+                <a href="{{url("customers-list")}}" class="nav-link {{ Request::segment(1) === 'customers-list' ? 'active' : null }}|">
+                  <i class="fas fa-users nav-icon"></i>
+                  <p>Groups</p>
+                </a>
+          </li>
+          <li class="nav-item">
             <a href="{{url("list-job")}}" class="nav-link {{ Request::segment(1) === 'list-job' ? 'active' : null }}">
               <i class="nav-icon fas fa-list-alt"></i>
                 <p>

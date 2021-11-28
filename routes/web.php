@@ -63,8 +63,17 @@ Route::group( ['middleware' => 'auth' ], function()
 
     // detail users
     Route::get('customers-list/detail/{id_customers}', 'DetailUserController@index');
- 
 
+    
+    // manage Group
+    Route::get('group-list', 'GroupController@index');
+    Route::post('group-list/store', 'GroupController@store')->name('group-store');
+    Route::put('group-list/edit', 'GroupController@edit')->name('group-edit');
+    Route::get('group-list/delete/{id}', 'GroupController@destroy');
+    Route::get('group-list/resetpassword/{id}', 'GroupController@resetpassword');
+
+
+    
     // manage product
     Route::get('product', 'ProductController@index');
     Route::post('product/store', 'ProductController@store')->name('product-store');

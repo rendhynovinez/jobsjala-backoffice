@@ -41,6 +41,17 @@ class CustomerLoginController extends Controller
 
     public function register(Request $request)
     {
+
+        if($request->is_group === 1){
+            $validator = Validator::make($request->all(), [
+                'number_phone' => 'required|string|max:255'
+            ]);
+            if ($validator->fails()) {
+                return response()->json(['error'=>$validator->errors()], 401);            
+            }
+            
+        }
+
         $validator = Validator::make($request->all(), [
             'username' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:customers',
@@ -50,7 +61,7 @@ class CustomerLoginController extends Controller
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()], 401);            
         }
-
+        
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = Customer::create($input);

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use App\Customer;
+use App\DetailUsers;
 use App\User;
 
 class CustomerController extends Controller
@@ -19,6 +20,16 @@ class CustomerController extends Controller
 
         return view('admin.listcustomers', ['customers' => $Customer]);
     }
+
+    // Index if grouping
+
+    public function indexByGroup($group_id)
+    {
+        $Customer = DetailUsers::where('Group',$group_id)->get();
+
+        return view('admin.listcustomersbygroup', ['customers' => $Customer]);
+    }
+
 
 
     public function edit(Request $request)

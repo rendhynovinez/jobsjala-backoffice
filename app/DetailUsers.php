@@ -22,6 +22,7 @@ class DetailUsers extends Model
         // 'file',
         // 'file_name',
         'Skills',
-        'customer_id'
+        'customer_id',
+        'Group'
     ];
 }

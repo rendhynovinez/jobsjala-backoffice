@@ -31,6 +31,7 @@ Route::get('listeducation', 'ApiController@listeducation');
 Route::get('listarea', 'ApiController@listLiveInArea');
 Route::get('listjobspecialist', 'ApiController@JobSpecialist');
 Route::get('listetnic', 'ApiController@Etniclist');
+Route::get('listgroup', 'ApiController@ListGroup');
 
 Route::post('profile-create', 'ApiController@profilecreate');
 Route::get('detail-profile', 'ApiController@detailprofile');

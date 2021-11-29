@@ -11,6 +11,7 @@ use App\JobSpecialist;
 use App\Etnics;
 use App\UsersHistoryJob;
 use App\DetailUsers;
+use App\Customer;
 use DB;
 use Auth;
 
@@ -74,7 +75,14 @@ class ApiController extends Controller
     public function JobSpecialist(){
        $listJobSpecialist = JobSpecialist::all();
        return response()->json(['data' => $listJobSpecialist], $this->successStatus);
-   }
+    }
+
+
+    // List Group
+    public function ListGroup(){
+        $ListGroup = DB::table('customers')->select('customers.username as username','customers.id as id')->where('is_active', 1)->where('is_group', 1)->get();
+        return response()->json(['data' => $ListGroup], $this->successStatus);
+     }
 
     // List Job Etniclist
      public function Etniclist(){
@@ -140,6 +148,12 @@ class ApiController extends Controller
                 'Skills'=> 'required'
             ]);
 
+            if($request->Group === null){
+                $group = 1;
+            }else{
+                $group = $request->Group;
+            }
+
             $DetailUsers = DetailUsers::create([
               'fullname' =>  $request->fullname,
               'dateofbirth' =>  $request->dateofbirth,
@@ -152,11 +166,9 @@ class ApiController extends Controller
               'Organization' =>  $request->Organization,
               'JobSpecialist' =>  $request->JobSpecialist,
               'Skills' =>  $request->Skills,
-            'customer_id' =>   auth('api')->user()->id,
-
-
+              'customer_id' =>   auth('api')->user()->id,
+              'Group' => $group,
           ]);
-      
 
             return response()->json(['data' => $notification], $this->successStatus);
 
@@ -196,10 +208,7 @@ class ApiController extends Controller
             $DetailUsers->Organization = $request->Organization;
             $DetailUsers->JobSpecialist = $request->JobSpecialist;
             $DetailUsers->Skills = $request->Skills;
-            // $DetailUsers->customer_id = Auth::user()->id;
             $DetailUsers->customer_id =  auth('api')->user()->id;
-            
-     
             $DetailUsers->save();
 
 

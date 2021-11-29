@@ -44,7 +44,7 @@ class CustomerLoginController extends Controller
 
         if($request->is_group === 1){
             $validator = Validator::make($request->all(), [
-                'number_phone' => 'required|string|max:255'
+                'number_phone' => 'required'
             ]);
             if ($validator->fails()) {
                 return response()->json(['error'=>$validator->errors()], 401);            

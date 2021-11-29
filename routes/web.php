@@ -64,6 +64,9 @@ Route::group( ['middleware' => 'auth' ], function()
     // detail users
     Route::get('customers-list/detail/{id_customers}', 'DetailUserController@index');
 
+    Route::get('groups-list/detail/{id_group}', 'CustomerController@indexByGroup');
+    Route::get('groups-list/detail/customers-list/detail/{id_customers}', 'DetailUserController@index');
+
     
     // manage Group
     Route::get('group-list', 'GroupController@index');

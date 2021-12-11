@@ -42,18 +42,52 @@ class ApiController extends Controller
 
     //Detail List Job
      public function DetailListJob($jobs_id){
-        $detailJob = listJob::where('id',$jobs_id)->get();
 
-        // Check Existing Data for button disable
-        $cekHistory = UsersHistoryJob::where('jobs_id',$jobs_id)
-        ->where('user_id',auth('api')->user()->id)->first();
+                // Check Existing Data if employee already apply is button disable
 
-        if($cekHistory == null){
-          $status = 0;
-        }else{
-          $status = 1;
-        }
-        return response()->json(['data' => $detailJob, 'history_status' => $status], $this->successStatus);
+                $listJob = listJob::where('id',$jobs_id)->first();
+
+                $cekHistory = UsersHistoryJob::where('jobs_id',$jobs_id)
+                ->where('user_id',auth('api')->user()->id)->first();
+
+                if($cekHistory == null){
+                    $status = 0;
+                }else{
+                     $status = 1;
+                }   
+
+
+                //get gender (1=male, 2=female)
+
+                // $gender = DB::table('detail-users')->select('detail-users.gender as gender')
+                // ->where('customer_id', auth('api')->user()->id)->first();
+
+                $gender = DetailUsers::where('customer_id', auth('api')->user()->id)->first()->gender;
+
+        
+                //Check job maksimum apply  (1=closed, 0=open)
+                
+                $status = 0;
+                
+
+                if(($listJob->standard_cnt !== null) && ($listJob->standard_cnt <= $listJob->apply_standard)){
+                    $status = 1;
+                }
+
+
+                if(($gender == "2") && ($listJob->female_cnt !== null) && ($listJob->female_cnt <= $listJob->apply_female)){
+                    $status = 1;
+                    
+                }
+
+
+                if(($gender == "1") && ($listJob->male_cnt !== null) && ($listJob->male_cnt <= $listJob->apply_male)){
+                    $status = 1;
+                }
+
+                
+    
+        return response()->json(['data' => $listJob, 'history_status' => $status], $this->successStatus);
             
     }
 
@@ -80,6 +114,12 @@ class ApiController extends Controller
 
     // List Group
     public function ListGroup(){
+        $ListGroup = DB::table('customers')->select('customers.username as username','customers.id as id')->where('is_active', 1)->where('is_group', 1)->get();
+        return response()->json(['data' => $ListGroup], $this->successStatus);
+     }
+
+     // List Group
+    public function ListGroupAjax(){
         $ListGroup = DB::table('customers')->select('customers.username as username','customers.id as id')->where('is_active', 1)->where('is_group', 1)->get();
         return response()->json(['data' => $ListGroup], $this->successStatus);
      }
@@ -241,16 +281,38 @@ class ApiController extends Controller
                 'jobs_id' => 'required',
             ]);
 
-            $DetailUsers = UsersHistoryJob::create([
+            $UserHistoryJob = UsersHistoryJob::create([
               'jobs_id' =>  $request->jobs_id,
               'status' =>  1,  // On Review
-            // 'user_id' => Auth::user()->id,
                'user_id' => auth('api')->user()->id,
-          ]);
-      
+            ]);
+
+            // Cek Pegawai male / female
+            $DetailUsers = DetailUsers::where('customer_id',auth('api')->user()->id)->first();
+            
+
+            $listjob= listjob::where('id',$request->jobs_id)->first();
+
+         
+            // Standard Count
+            if($listjob->standard_cnt !== null){
+
+                    $listjob->update(['apply_standard'=> ($listjob->apply_standard + 1)]);
+
+            }else{
+                   // Cek jumlah female / male / standar pada job di apply
+                    if($DetailUsers->gender == 1){
+                        $listjob->update(['apply_male'=> ($listjob->apply_male + 1)]);
+                    }else if($DetailUsers->gender == 2){
+                        $listjob->update(['apply_female'=> ($listjob->apply_female + 1)]);
+                    }
+            }
+
             return response()->json(['data' => $notification], $this->successStatus);
 
-        } catch (\Throwable $th) {
+
+        } 
+        catch (\Throwable $th) {
 
 
             $notification = array(

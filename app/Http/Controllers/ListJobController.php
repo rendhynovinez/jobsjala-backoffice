@@ -10,8 +10,6 @@ use App\listJob;
 
 class ListJobController extends Controller
 {
-    //
-
     public function index()
     {
         $listJob = listJob::all();
@@ -22,6 +20,8 @@ class ListJobController extends Controller
 
     public function store(Request $request)
     {
+
+        
 
         try {
             $notification = array(
@@ -41,6 +41,7 @@ class ListJobController extends Controller
                 'ItemCategory' => 'required',
                 'ItemRequirements' => 'required'
             ]);
+            
 
             listJob::create([
                 'itemCompany'  => $request->itemCompany,
@@ -51,7 +52,14 @@ class ListJobController extends Controller
                 'itemAdress' =>  $request->itemAdress,
                 'itemStatus' =>  $request->itemStatus,
                 'ItemCategory' =>  $request->ItemCategory,
-                'ItemRequirements' =>  $request->ItemRequirements
+                'ItemRequirements' =>  $request->ItemRequirements,
+                'female_cnt' =>  $request->female_cnt,
+                'male_cnt' =>  $request->male_cnt,
+                'standard_cnt' =>  $request->standard_cnt,
+                'apply_female' =>  $request->apply_female,
+                'apply_male' =>  $request->apply_male,
+                'apply_standard' =>  $request->apply_standard,
+                'gender_status' => $request->gender_status
             ]);
 
             return Redirect::to('/list-job')->with($notification);

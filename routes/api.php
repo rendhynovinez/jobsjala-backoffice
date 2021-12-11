@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+// With Authorization
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -38,5 +40,9 @@ Route::get('detail-profile', 'ApiController@detailprofile');
 Route::put('profile-update', 'ApiController@profileedit');
 Route::post('applyjob', 'ApiController@applyjob');
 }); 
+
+
+// No Authorization
+Route::get('listgroup-ajax', 'ApiController@ListGroup');
 
 

@@ -76,13 +76,13 @@ to get the desired effect
                                                 <td>{{ $data->Customer->email }}</td>
                                                 <td><?php
                                                     if ($data->status == 1) {
-                                                        echo '<h6><span class="badge badge-primary">On Review</span></h6>';
+                                                        echo '<h6><span class="badge badge-success">Complete</span></h6>';
                                                     } elseif ($data->status == 2){
                                                         echo '<h6><span class="badge badge-warning">Interview</span></h6>';
                                                     }elseif ($data->status == 3){
                                                         echo '<h6><span class="badge badge-danger">Unsuitable</span></h6>';
                                                     }else{
-                                                        echo '<h6><span class="badge badge-success">Complete</span></h6>';
+                                                        echo '<h6><span class="badge badge-success">Done</span></h6>';
                                                     }
                                                 ?></td>
                                                 <td >

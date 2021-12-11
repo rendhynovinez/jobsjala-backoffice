@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 @include('header.header') 
+<style>
+
+.form-inline .form-control {
+    width: 100%;
+}
+
+</style>
 
 <!--
 BODY TAG OPTIONS:
@@ -106,7 +113,7 @@ to get the desired effect
                                                 <td style="display: none">{{ $data->ItemCategory }}</td>
                                                 <td style="display: none">{{ $data->ItemRequirements }}</td>
                                                 <td >
-                                                    <button type="button" class="btn btn-primary historyID" data-id="{{ $data->id }}">History</button>
+                                                    <button type="button" class="btn btn-primary historyID" data-id="{{ $data->id }}">Applicant</button>
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -317,7 +324,7 @@ to get the desired effect
                                         <div class="form-group col-md-6">
                                             <label for="itemStatus" class="col-sm-12 control-label">Status</label>
                                             <div class="col-sm-12">
-                                                <select id="itemStatus" name="itemStatus" class="form-control">
+                                                <select id="itemStatus" name="itemStatus" class="form-control @error('itemStatus') is-invalid @enderror" value="" required="">
                                                     <option value="">--- choose Status ---</option>
                                                     <option value="0">Disabled</option>
                                                     <option value="1">Enabled</option>
@@ -340,7 +347,35 @@ to get the desired effect
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
-                                    </div>
+                                    <label for="itemStatus" class="col-sm-12 control-label">Limit Gender</label>
+                                            <div class="col-sm-12">
+                                                <select id="gender_status" name="gender_status" class="form-control @error('gender_status') is-invalid @enderror"  onchange="ChangeLimit(this.value)" value="" required="">
+                                                    <option value="">--- choose Status ---</option>
+                                                    <option value="1">Standard (All Gender)</option>
+                                                    <option value="2">Mix (Male/Female)</option>
+                                                </select>
+
+                                                @error('is_active')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+
+                                                <div class='form-inline row' style="margin-top:10px;">
+                                                    <div class='form-group col-sm-6' id="female">
+                                                        <input type="number" class="form-control" name="female_cnt" id="female_cnt" placeholder="Female Maximum" value="" required>
+                                                    </div>
+                                                    <div class='form-group col-sm-6' id="male">
+                                                        <input type="number" class="form-control"  name="male_cnt" id="male_cnt" placeholder="Male Maximum"  value="" required>
+                                                    </div>
+                                                    <div class='form-group col-sm-12' id="standard" style="margin-top:10px;">
+                                                        <input type="number" class="form-control"  name="standard_cnt" id="standard_cnt" placeholder="standard" value="" required>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                     
+                                     </div>
                                 </div>
 
 
@@ -373,6 +408,50 @@ to get the desired effect
 @include('js.toast-info')
 
 <script>
+
+    // default hidden limit gender  
+    standard.style.display = "none";
+    male.style.display = "none";
+    female.style.display = "none";
+
+
+   // default disable required limit gender
+    document.getElementById("standard_cnt").required = false;
+    document.getElementById("male_cnt").required = false;
+    document.getElementById("female_cnt").required = false;
+
+    function ChangeLimit(data){
+        
+        // div id
+        var standard = document.getElementById("standard");
+        var male  = document.getElementById("male");
+        var female  = document.getElementById("female");
+
+        // input
+        var standard_cnt = document.getElementById("standard_cnt");
+        var male_cnt  = document.getElementById("male_cnt");
+        var female_cnt  = document.getElementById("female_cnt");
+
+
+        // if 1 = Standard / 2 = mix
+        if(data == 1){
+            standard.style.display = "block";
+            male.style.display = "none";
+            female.style.display = "none";
+            standard_cnt.required = true;
+            male_cnt.required = false;
+            female_cnt.required = false;
+        }else if(data == 2){
+            standard.style.display = "none";
+            male.style.display = "block";
+            female.style.display = "block";
+            male_cnt.required = true;
+            female_cnt.required = true;
+            standard_cnt.required = false;
+        }
+    }
+
+
     var table
 
     $(document).ready( function () {

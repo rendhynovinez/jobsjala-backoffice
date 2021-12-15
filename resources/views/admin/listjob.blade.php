@@ -181,7 +181,7 @@ to get the desired effect
                                     <div class="form-group">
                                         <label for="is_active" class="col-sm-12 control-label">Status</label>
                                         <div class="col-sm-12">
-                                        <select id="itemStatus" name="itemStatus" class="form-control">
+                                        <select id="itemStatus" name="itemStatus" class="form-control" required="">
                                                 <option value="">--- choose Status ---</option>
                                                 <option value="0">Disabled</option>
                                                 <option value="1">Enabled</option>
@@ -264,25 +264,43 @@ to get the desired effect
                                             </div>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="title" class="col-sm-12 control-label">Category</label>
-                                        <div class="col-sm-12">
-                                            <select id="ItemCategory" name="ItemCategory" class="form-control @error('ItemCategory') is-invalid @enderror" id="ItemCategory" name="ItemCategory" placeholder="Choose Category" value="" required="">
-                                                    <option value="">--- choose Category ---</option>
-                                                    <option value="1">Accounting</option>
-                                                    <option value="2">Human Resources</option>
-                                                    <option value="3">Sales / Marketing</option>
-                                                    <option value="4">Arts/Media/Communications</option>
-                                                    <option value="5">Hotel / Restaurant</option>
-                                                    <option value="6">Education / Training</option>
-                                                    <option value="7">Computer/Information Technology/IT</option>
-                                                    <option value="8">Technical</option>
-                                                    <option value="9">Manufacture</option>
-                                                    <option value="10">Building/Construction</option>
-                                                    <option value="11">Sains</option>
-                                                    <option value="12">Health services</option>
-                                                    <option value="13">Others</option>
-                                            </select>
+                                        <label for="title" class="col-sm-12 control-label" id="AddGroup"> 
+                                           <span>Categories :</span>
+                                        </label>
+                                        <div class='form-inline row' style="margin-left:2px;">
+                                            <!-- <div class="col-sm-8">
+                                                <select id="ItemCategory" name="ItemCategory" class="form-control @error('ItemCategory') is-invalid @enderror" id="ItemCategory" name="ItemCategory" placeholder="Choose Category" value="" required="">
+                                                        <option value="">--- choose Category ---</option>
+                                                        <option value="1">Accounting</option>
+                                                        <option value="2">Human Resources</option>
+                                                        <option value="3">Sales / Marketing</option>
+                                                        <option value="4">Arts/Media/Communications</option>
+                                                        <option value="5">Hotel / Restaurant</option>
+                                                        <option value="6">Education / Training</option>
+                                                        <option value="7">Computer/Information Technology/IT</option>
+                                                        <option value="8">Technical</option>
+                                                        <option value="9">Manufacture</option>
+                                                        <option value="10">Building/Construction</option>
+                                                        <option value="11">Sains</option>
+                                                        <option value="12">Health services</option>
+                                                        <option value="13">Others</option>
+                                                </select>
+                                            </div> -->
+
+                                            <div class="col-sm-8">
+                                                <select class="form-control @error('ItemGroup') is-invalid @enderror" id="ItemGroup" name="ItemGroup" placeholder="" value="-- Choose Group --" required="">
+                                                    <option value="">-- Choose Group --</option>
+                                                    @foreach($ListGroup as $groupName)
+                                                        <option value="{{$groupName->id}}">{{$groupName->username}}</option>
+                                                    @endforeach
+                                                </select>
+                                           </div>
+                                            <div class=col-sm-4>
+                                                    <button type="submit" class="btn btn-success " id="btn-save" value="create" onclick="AddGroup()"><span class="fa fa-plus"></span> Add</button>
+                                            </div>
                                         </div>
+
+
                                     </div>
 
                                 </div>
@@ -380,7 +398,7 @@ to get the desired effect
 
 
                                 <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-danger" id="btn-save" value="create">Add
+                                    <button type="submit" class="btn btn-danger" id="btn-save" value="create">Create
                                     </button>
                             </div>
                     </form>
@@ -408,6 +426,55 @@ to get the desired effect
 @include('js.toast-info')
 
 <script>
+
+
+    // Hapus tag
+    removespan = function(id) {
+        $('span[id^="'+id+'"]').remove();
+         x -= 1
+        const index = tempGroup.indexOf(id);
+            if (index > -1) {
+             tempGroup.splice(index, 1);
+        }
+    }
+
+
+    // Add group
+    const tempGroup = [];
+    var x = 0;
+    function AddGroup(){
+        debugger
+        
+        var selectBox = document.getElementById("ItemGroup");
+        var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+        var selectedText = selectBox.options[selectBox.selectedIndex].text;
+     
+        if(tempGroup.length === 3){
+            return alert('Maximum Group 3');
+        }   
+      
+        if(selectedValue == null || selectedValue == ''){
+           return alert('Please Choose Data !');
+        }
+        
+
+        const found = tempGroup.find(element => element == selectedValue);
+
+        if(found === selectedValue){
+            return alert('Data already exist !');
+        }
+
+        x++;
+
+        tempGroup.push(selectedValue);
+ 
+        document.querySelector('#AddGroup').innerHTML += '<span class="badge badge-warning" onclick="removespan(this.id)" id="'+selectedValue+'">'+selectedText+' X</span>';
+        
+        document.querySelector('#AddGroup').innerHTML += '<input type="hidden" value="'+selectedValue+'" name="idgroup['+x+']" id="idgroup['+x+']">';
+
+    }
+
+    
 
     // default hidden limit gender  
     standard.style.display = "none";

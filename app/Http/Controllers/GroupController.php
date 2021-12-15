@@ -15,6 +15,7 @@ class GroupController extends Controller
 
     public function index()
     {
+        // customer is group if is_group = 1
         $groups = Customer::where('is_group', 1)->get();
         return view('admin.listgroup', ['groups' => $groups]);
     }

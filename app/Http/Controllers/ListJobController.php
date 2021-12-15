@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use App\listJob;
+use App\Customer;
+use App\ListJobGroup;
 
 class ListJobController extends Controller
 {
@@ -14,22 +16,20 @@ class ListJobController extends Controller
     {
         $listJob = listJob::all();
 
-        return view('admin.listjob', ['listJob' => $listJob]);
+        $ListGroup = Customer::where('is_active', 1)->where('is_group', 1)->get();
+
+        return view('admin.listjob', ['listJob' => $listJob, 'ListGroup' => $ListGroup]);
     }
 
 
     public function store(Request $request)
     {
-
-        
-
         try {
             $notification = array(
                 'message' => 'Jobs data has been saved successfully!                ',
                 'alert-type' => 'success'
             );
 
-     
             $request->validate([
                 'itemCompany'  => 'required',
                 'itemSalary' => 'required',
@@ -38,12 +38,10 @@ class ListJobController extends Controller
                 'ItemDetailDescription' => 'required',
                 'itemAdress' => 'required',
                 'itemStatus' => 'required',
-                'ItemCategory' => 'required',
                 'ItemRequirements' => 'required'
             ]);
             
-
-            listJob::create([
+            $listJob = listJob::create([
                 'itemCompany'  => $request->itemCompany,
                 'itemSalary' =>  $request->itemSalary,
                 'itemTitle' =>  $request->itemTitle,
@@ -51,7 +49,6 @@ class ListJobController extends Controller
                 'ItemDetailDescription' =>  $request->ItemDetailDescription,
                 'itemAdress' =>  $request->itemAdress,
                 'itemStatus' =>  $request->itemStatus,
-                'ItemCategory' =>  $request->ItemCategory,
                 'ItemRequirements' =>  $request->ItemRequirements,
                 'female_cnt' =>  $request->female_cnt,
                 'male_cnt' =>  $request->male_cnt,
@@ -61,6 +58,15 @@ class ListJobController extends Controller
                 'apply_standard' =>  $request->apply_standard,
                 'gender_status' => $request->gender_status
             ]);
+            
+            
+            $groups = $request->idgroup;
+            foreach( $groups as $key => $item ) {
+                $listJobGroup = ListJobGroup::create([
+                    "lisjob_id" => $listJob->id,
+                    "group_id" => $item
+                ]);
+            }
 
             return Redirect::to('/list-job')->with($notification);
 

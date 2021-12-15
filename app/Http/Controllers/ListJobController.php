@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use App\listJob;
 use App\Customer;
-use App\ListJobgroup;
+use App\Listjobgroup;
 
 class ListJobController extends Controller
 {
@@ -62,7 +62,7 @@ class ListJobController extends Controller
 
             $groups = $request->idgroup;
             foreach( $groups as $key => $item ) {
-                $listJobGroup = ListJobgroup::create([
+                $listJobGroup = Listjobgroup::create([
                     "lisjob_id" => $listJob->id,
                     "group_id" => $item
                 ]);

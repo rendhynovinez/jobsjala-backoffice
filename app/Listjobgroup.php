@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ListJobgroup extends Model
+class Listjobgroup extends Model
 {
     //
     

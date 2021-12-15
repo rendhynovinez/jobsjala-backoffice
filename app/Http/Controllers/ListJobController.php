@@ -24,22 +24,22 @@ class ListJobController extends Controller
 
     public function store(Request $request)
     {
-        // try {
-        //     $notification = array(
-        //         'message' => 'Jobs data has been saved successfully!                ',
-        //         'alert-type' => 'success'
-        //     );
+        try {
+            $notification = array(
+                'message' => 'Jobs data has been saved successfully!                ',
+                'alert-type' => 'success'
+            );
 
-            // $request->validate([
-            //     'itemCompany'  => 'required',
-            //     'itemSalary' => 'required',
-            //     'itemTitle' => 'required',
-            //     'itemPostDescription' => 'required',
-            //     'ItemDetailDescription' => 'required',
-            //     'itemAdress' => 'required',
-            //     'itemStatus' => 'required',
-            //     'ItemRequirements' => 'required'
-            // ]);
+            $request->validate([
+                'itemCompany'  => 'required',
+                'itemSalary' => 'required',
+                'itemTitle' => 'required',
+                'itemPostDescription' => 'required',
+                'ItemDetailDescription' => 'required',
+                'itemAdress' => 'required',
+                'itemStatus' => 'required',
+                'ItemRequirements' => 'required'
+            ]);
             
             $listJob = listJob::create([
                 'itemCompany'  => $request->itemCompany,
@@ -68,16 +68,16 @@ class ListJobController extends Controller
                 ]);
             }
 
-        //     return Redirect::to('/list-job')->with($notification);
+            return Redirect::to('/list-job')->with($notification);
 
-        // } catch (\Throwable $th) {
+        } catch (\Throwable $th) {
             
-        //     $notification = array(
-        //         'message' => 'Jobs data failed to save! ',
-        //         'alert-type' => 'error'
-        //     );
-        //     return Redirect::to('/list-job')->with($notification);
-        // }
+            $notification = array(
+                'message' => 'Jobs data failed to save! ',
+                'alert-type' => 'error'
+            );
+            return Redirect::to('/list-job')->with($notification);
+        }
     }
 
     public function edit(Request $request)

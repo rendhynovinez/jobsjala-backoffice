@@ -23,6 +23,8 @@ class ApiController extends Controller
     
     //Function Job
     public function listjob(){
+
+    $Group_id = DetailUsers::where('customer_id', auth('api')->user()->id)->first()->Group;
     $listJob = DB::table('list-job')
     ->select('list-job.id as job_id',
     'list-job.itemCompany as itemCompany',
@@ -32,9 +34,12 @@ class ApiController extends Controller
     'list-job.itemSalary',
     'list-job.itemStatus','list-job.itemImg',
     'job_specialist.name as ItemCategory',
-    'list-job.ItemRequirements'
+    'list-job.ItemRequirements',
+    'list-job-group.group_id as group_id'
     )
     ->leftJoin('job_specialist','list-job.ItemCategory','=','job_specialist.id')
+    ->rightJoin('list-job-group','list-job.id','=','list-job-group.lisjob_id')
+    ->where('list-job-group.group_id', $Group_id)
     ->get();
     return response()->json(['data' => $listJob], $this->successStatus);
     }
@@ -62,7 +67,7 @@ class ApiController extends Controller
                 // $gender = DB::table('detail-users')->select('detail-users.gender as gender')
                 // ->where('customer_id', auth('api')->user()->id)->first();
 
-                $gender = DetailUsers::where('customer_id', auth('api')->user()->id)->first()->gender;
+                $gender = DetailUsers::where('customer_id', )->first()->gender;
 
         
                 //Check job maksimum apply  (1=closed, 0=open)

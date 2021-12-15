@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use App\listJob;
 use App\Customer;
-use App\ListJobGroup;
+use App\ListJobgroup;
 
 class ListJobController extends Controller
 {

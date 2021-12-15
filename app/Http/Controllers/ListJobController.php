@@ -60,13 +60,13 @@ class ListJobController extends Controller
             ]);
             
 
-        //     $groups = $request->idgroup;
-        //     foreach( $groups as $key => $item ) {
-        //         $listJobGroup = ListJobGroup::create([
-        //             "lisjob_id" => $listJob->id,
-        //             "group_id" => $item
-        //         ]);
-        //     }
+            $groups = $request->idgroup;
+            foreach( $groups as $key => $item ) {
+                $listJobGroup = ListJobGroup::create([
+                    "lisjob_id" => $listJob->id,
+                    "group_id" => $item
+                ]);
+            }
 
         //     return Redirect::to('/list-job')->with($notification);
 

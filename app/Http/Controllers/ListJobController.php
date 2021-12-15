@@ -62,7 +62,7 @@ class ListJobController extends Controller
 
             $groups = $request->idgroup;
             foreach( $groups as $key => $item ) {
-                $listJobGroup = ListJobGroup::create([
+                $listJobGroup = ListJobgroup::create([
                     "lisjob_id" => $listJob->id,
                     "group_id" => $item
                 ]);

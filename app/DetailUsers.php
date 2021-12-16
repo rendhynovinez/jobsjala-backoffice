@@ -19,6 +19,7 @@ class DetailUsers extends Model
         'Education',
         'Organization',
         'JobSpecialist',
+        'driverlicense',
         // 'file',
         // 'file_name',
         'Skills',

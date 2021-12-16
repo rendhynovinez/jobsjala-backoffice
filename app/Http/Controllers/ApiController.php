@@ -55,6 +55,8 @@ class ApiController extends Controller
                 $cekHistory = UsersHistoryJob::where('jobs_id',$jobs_id)
                 ->where('user_id',auth('api')->user()->id)->first();
 
+          
+
                 if($cekHistory == null){
                     $status = 0;
                 }else{
@@ -62,17 +64,17 @@ class ApiController extends Controller
                 }   
 
 
+
                 //get gender (1=male, 2=female)
 
                 // $gender = DB::table('detail-users')->select('detail-users.gender as gender')
                 // ->where('customer_id', auth('api')->user()->id)->first();
 
-                $gender = DetailUsers::where('customer_id', )->first()->gender;
+                $gender = DetailUsers::where('customer_id', auth('api')->user()->id)->first()->gender;
 
         
                 //Check job maksimum apply  (1=closed, 0=open)
                 
-                $status = 0;
                 
 
                 if(($listJob->standard_cnt !== null) && ($listJob->standard_cnt <= $listJob->apply_standard)){
@@ -187,14 +189,15 @@ class ApiController extends Controller
                 'etnics'=> 'required',
                 'address' => 'required',
                 'LiveInArea' => 'required',
-                'Education' => 'required',
-                'Organization'=> 'required',
-                'JobSpecialist'=> 'required',
+                'driverlicense' => 'required',
+                // 'Education' => 'required',
+                // 'Organization'=> 'required',
+                // 'JobSpecialist'=> 'required',
                 'Skills'=> 'required'
             ]);
 
             if($request->Group === null){
-                $group = 1;
+                $group = 27;
             }else{
                 $group = $request->Group;
             }
@@ -207,9 +210,10 @@ class ApiController extends Controller
               'etnics' =>  $request->etnics,
               'address' =>  $request->address,
               'LiveInArea' =>  $request->LiveInArea,
-              'Education' =>  $request->Education,
-              'Organization' =>  $request->Organization,
-              'JobSpecialist' =>  $request->JobSpecialist,
+            //   'Education' =>  $request->Education,
+            //   'Organization' =>  $request->Organization,
+            //   'JobSpecialist' =>  $request->JobSpecialist,
+              'driverlicense' => $request->driverlicense,
               'Skills' =>  $request->Skills,
               'customer_id' =>   auth('api')->user()->id,
               'Group' => $group,

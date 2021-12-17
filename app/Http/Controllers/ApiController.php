@@ -197,7 +197,7 @@ class ApiController extends Controller
             ]);
 
             if($request->Group === null){
-                $group = 27;
+                $group = 1;
             }else{
                 $group = $request->Group;
             }

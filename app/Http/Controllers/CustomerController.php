@@ -16,7 +16,7 @@ class CustomerController extends Controller
 
     public function index()
     {
-        $Customer = Customer::all();
+        $Customer = Customer::whereNull('is_group')->get();
 
         return view('admin.listcustomers', ['customers' => $Customer]);
     }

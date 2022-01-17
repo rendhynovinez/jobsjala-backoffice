@@ -70,7 +70,7 @@ class ListJobController extends Controller
             $data = [
                 "registration_ids" => $DetailUsers,
                 "notification" => [
-                    "title" => "New Job",
+                    "title" => "New Job - (".$request->itemCompany.")",
                     "body" => $request->itemPostDescription,  
                 ]
             ];
@@ -103,6 +103,8 @@ class ListJobController extends Controller
     
             curl_close($ch);
     
+           
+            
 
             $groups = $request->idgroup;
             foreach( $groups as $key => $item ) {

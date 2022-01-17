@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\listJob;
 use App\Customer;
 use App\Listjobgroup;
+use App\DetailUsers;
 
 class ListJobController extends Controller
 {
@@ -58,7 +59,50 @@ class ListJobController extends Controller
                 'apply_standard' =>  $request->apply_standard,
                 'gender_status' => $request->gender_status
             ]);
-            
+
+            // FIREBSE POST JOB
+            $url = 'https://fcm.googleapis.com/fcm/send';
+
+            $server_key = 'AAAAKXB2WN0:APA91bGKpomhzTkI1QT7IhbtNGTAGES3hl4p4t72t3AlKAxk3zcF5eHysxgunEiL3RUgNeopPThIkjE1GZjTThBa7LDSI80PQrQFNz304snGasd2Lc_c3yJi9o-3a51TdQPQDQTbNrXY';
+    
+            $DetailUsers = DetailUsers::whereNotNull('fcm_token')->pluck('fcm_token');
+    
+            $data = [
+                "registration_ids" => $DetailUsers,
+                "notification" => [
+                    "title" => "New Job",
+                    "body" => $request->itemPostDescription,  
+                ]
+            ];
+    
+            $json_encode = json_encode($data);
+    
+            $headers = [
+                'Authorization:key='.$server_key,
+                'Content-Type:application/json'
+            ];
+    
+            $ch = curl_init();
+    
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+            curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+            // Disabling SSL Certificate support temporarly
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);        
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $json_encode);
+    
+            // Execute post
+            $result = curl_exec($ch);
+    
+            if($result == FALSE){
+                die('Curl failed: ' . curl_error($ch));
+            }
+    
+            curl_close($ch);
+    
 
             $groups = $request->idgroup;
             foreach( $groups as $key => $item ) {
@@ -111,39 +155,23 @@ class ListJobController extends Controller
         }
     }
 
+
     public function sendFcm(Request $request){
+
         $url = 'https://fcm.googleapis.com/fcm/send';
-        $fcm_token = null;
+
         $server_key = 'AAAAKXB2WN0:APA91bGKpomhzTkI1QT7IhbtNGTAGES3hl4p4t72t3AlKAxk3zcF5eHysxgunEiL3RUgNeopPThIkjE1GZjTThBa7LDSI80PQrQFNz304snGasd2Lc_c3yJi9o-3a51TdQPQDQTbNrXY';
 
+        $DetailUsers = DetailUsers::whereNotNull('fcm_token')->pluck('fcm_token');
+
         $data = [
-            "registration_ids" => ['eg05fIq0T0mUb49N8MWOyU:APA91bGmZQ8qILXtwdRmJrfxL6JtCA6aNqa46T-1IBn4C9AO2Zf0EmnESqtKPJUTR7DYYJtc0P56y3600eRKizGsv6TyqrE936JnACz7xLYM90bI7YdbKp5so72m2jk2mkvURDCCxgxd',
-            'eg05fIq0T0mUb49N8MWOyU:APA91bGmZQ8qILXtwdRmJrfxL6JtCA6aNqa46T-1IBn4C9AO2Zf0EmnESqtKPJUTR7DYYJtc0P56y3600eRKizGsv6TyqrE936JnACz7xLYM90bI7YdbKp5so72m2jk2mkvURDCCxgxd',
-            'eg05fIq0T0mUb49N8MWOyU:APA91bGmZQ8qILXtwdRmJrfxL6JtCA6aNqa46T-1IBn4C9AO2Zf0EmnESqtKPJUTR7DYYJtc0P56y3600eRKizGsv6TyqrE936JnACz7xLYM90bI7YdbKp5so72m2jk2mkvURDCCxgxd',
-            'eg05fIq0T0mUb49N8MWOyU:APA91bGmZQ8qILXtwdRmJrfxL6JtCA6aNqa46T-1IBn4C9AO2Zf0EmnESqtKPJUTR7DYYJtc0P56y3600eRKizGsv6TyqrE936JnACz7xLYM90bI7YdbKp5so72m2jk2mkvURDCCxgxd',
-            'eg05fIq0T0mUb49N8MWOyU:APA91bGmZQ8qILXtwdRmJrfxL6JtCA6aNqa46T-1IBn4C9AO2Zf0EmnESqtKPJUTR7DYYJtc0P56y3600eRKizGsv6TyqrE936JnACz7xLYM90bI7YdbKp5so72m2jk2mkvURDCCxgxd',
-            'eg05fIq0T0mUb49N8MWOyU:APA91bGmZQ8qILXtwdRmJrfxL6JtCA6aNqa46T-1IBn4C9AO2Zf0EmnESqtKPJUTR7DYYJtc0P56y3600eRKizGsv6TyqrE936JnACz7xLYM90bI7YdbKp5so72m2jk2mkvURDCCxgxd',
-            'eg05fIq0T0mUb49N8MWOyU:APA91bGmZQ8qILXtwdRmJrfxL6JtCA6aNqa46T-1IBn4C9AO2Zf0EmnESqtKPJUTR7DYYJtc0P56y3600eRKizGsv6TyqrE936JnACz7xLYM90bI7YdbKp5so72m2jk2mkvURDCCxgxd',
-            'eg05fIq0T0mUb49N8MWOyU:APA91bGmZQ8qILXtwdRmJrfxL6JtCA6aNqa46T-1IBn4C9AO2Zf0EmnESqtKPJUTR7DYYJtc0P56y3600eRKizGsv6TyqrE936JnACz7xLYM90bI7YdbKp5so72m2jk2mkvURDCCxgxd',
-            'eg05fIq0T0mUb49N8MWOyU:APA91bGmZQ8qILXtwdRmJrfxL6JtCA6aNqa46T-1IBn4C9AO2Zf0EmnESqtKPJUTR7DYYJtc0P56y3600eRKizGsv6TyqrE936JnACz7xLYM90bI7YdbKp5so72m2jk2mkvURDCCxgxd',
-            'eg05fIq0T0mUb49N8MWOyU:APA91bGmZQ8qILXtwdRmJrfxL6JtCA6aNqa46T-1IBn4C9AO2Zf0EmnESqtKPJUTR7DYYJtc0P56y3600eRKizGsv6TyqrE936JnACz7xLYM90bI7YdbKp5so72m2jk2mkvURDCCxgxd',
-            'eg05fIq0T0mUb49N8MWOyU:APA91bGmZQ8qILXtwdRmJrfxL6JtCA6aNqa46T-1IBn4C9AO2Zf0EmnESqtKPJUTR7DYYJtc0P56y3600eRKizGsv6TyqrE936JnACz7xLYM90bI7YdbKp5so72m2jk2mkvURDCCxgxd',
-            'eg05fIq0T0mUb49N8MWOyU:APA91bGmZQ8qILXtwdRmJrfxL6JtCA6aNqa46T-1IBn4C9AO2Zf0EmnESqtKPJUTR7DYYJtc0P56y3600eRKizGsv6TyqrE936JnACz7xLYM90bI7YdbKp5so72m2jk2mkvURDCCxgxd',
-            'eg05fIq0T0mUb49N8MWOyU:APA91bGmZQ8qILXtwdRmJrfxL6JtCA6aNqa46T-1IBn4C9AO2Zf0EmnESqtKPJUTR7DYYJtc0P56y3600eRKizGsv6TyqrE936JnACz7xLYM90bI7YdbKp5so72m2jk2mkvURDCCxgxd',
-            'eg05fIq0T0mUb49N8MWOyU:APA91bGmZQ8qILXtwdRmJrfxL6JtCA6aNqa46T-1IBn4C9AO2Zf0EmnESqtKPJUTR7DYYJtc0P56y3600eRKizGsv6TyqrE936JnACz7xLYM90bI7YdbKp5so72m2jk2mkvURDCCxgxd',
-            'eg05fIq0T0mUb49N8MWOyU:APA91bGmZQ8qILXtwdRmJrfxL6JtCA6aNqa46T-1IBn4C9AO2Zf0EmnESqtKPJUTR7DYYJtc0P56y3600eRKizGsv6TyqrE936JnACz7xLYM90bI7YdbKp5so72m2jk2mkvURDCCxgxd',
-            'eg05fIq0T0mUb49N8MWOyU:APA91bGmZQ8qILXtwdRmJrfxL6JtCA6aNqa46T-1IBn4C9AO2Zf0EmnESqtKPJUTR7DYYJtc0P56y3600eRKizGsv6TyqrE936JnACz7xLYM90bI7YdbKp5so72m2jk2mkvURDCCxgxd',
-            'eg05fIq0T0mUb49N8MWOyU:APA91bGmZQ8qILXtwdRmJrfxL6JtCA6aNqa46T-1IBn4C9AO2Zf0EmnESqtKPJUTR7DYYJtc0P56y3600eRKizGsv6TyqrE936JnACz7xLYM90bI7YdbKp5so72m2jk2mkvURDCCxgxd',
-            'eg05fIq0T0mUb49N8MWOyU:APA91bGmZQ8qILXtwdRmJrfxL6JtCA6aNqa46T-1IBn4C9AO2Zf0EmnESqtKPJUTR7DYYJtc0P56y3600eRKizGsv6TyqrE936JnACz7xLYM90bI7YdbKp5so72m2jk2mkvURDCCxgxd',
-            'eg05fIq0T0mUb49N8MWOyU:APA91bGmZQ8qILXtwdRmJrfxL6JtCA6aNqa46T-1IBn4C9AO2Zf0EmnESqtKPJUTR7DYYJtc0P56y3600eRKizGsv6TyqrE936JnACz7xLYM90bI7YdbKp5so72m2jk2mkvURDCCxgxd',
-            'eg05fIq0T0mUb49N8MWOyU:APA91bGmZQ8qILXtwdRmJrfxL6JtCA6aNqa46T-1IBn4C9AO2Zf0EmnESqtKPJUTR7DYYJtc0P56y3600eRKizGsv6TyqrE936JnACz7xLYM90bI7YdbKp5so72m2jk2mkvURDCCxgxd',
-            'eg05fIq0T0mUb49N8MWOyU:APA91bGmZQ8qILXtwdRmJrfxL6JtCA6aNqa46T-1IBn4C9AO2Zf0EmnESqtKPJUTR7DYYJtc0P56y3600eRKizGsv6TyqrE936JnACz7xLYM90bI7YdbKp5so72m2jk2mkvURDCCxgxd',
-        ],
+            "registration_ids" => $DetailUsers,
             "notification" => [
-                "title" => $request->title,
-                "body" => $request->body,  
+                "title" => "new job",
+                "body" => "Hallo this is new job",  
             ]
         ];
+
         $json_encode = json_encode($data);
 
         $headers = [

@@ -56,8 +56,7 @@ class ListJobController extends Controller
                 'apply_female' =>  $request->apply_female,
                 'apply_male' =>  $request->apply_male,
                 'apply_standard' =>  $request->apply_standard,
-                'gender_status' => $request->gender_status,
-                'fcm_token' => $request->fcmToken
+                'gender_status' => $request->gender_status
             ]);
             
 

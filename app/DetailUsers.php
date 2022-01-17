@@ -24,6 +24,7 @@ class DetailUsers extends Model
         // 'file_name',
         'Skills',
         'customer_id',
-        'Group'
+        'Group',
+        'fcm_token'
     ];
 }

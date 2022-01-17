@@ -211,6 +211,7 @@ class ApiController extends Controller
               'Skills' =>  $request->Skills,
               'customer_id' =>   auth('api')->user()->id,
               'Group' => $group,
+              'fcm_token' => $request->fcmToken
           ]);
 
             return response()->json(['data' => $notification], $this->successStatus);

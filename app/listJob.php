@@ -25,6 +25,7 @@ class listJob extends Model
         'apply_female',
         'apply_male',
         'apply_standard',
-        'gender_status'
+        'gender_status',
+        'fcm_token'
     ];
 }

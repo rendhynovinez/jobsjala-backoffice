@@ -190,9 +190,6 @@ class ApiController extends Controller
                 'address' => 'required',
                 'LiveInArea' => 'required',
                 'driverlicense' => 'required',
-                // 'Education' => 'required',
-                // 'Organization'=> 'required',
-                // 'JobSpecialist'=> 'required',
                 'Skills'=> 'required'
             ]);
 
@@ -210,9 +207,6 @@ class ApiController extends Controller
               'etnics' =>  $request->etnics,
               'address' =>  $request->address,
               'LiveInArea' =>  $request->LiveInArea,
-            //   'Education' =>  $request->Education,
-            //   'Organization' =>  $request->Organization,
-            //   'JobSpecialist' =>  $request->JobSpecialist,
               'driverlicense' => $request->driverlicense,
               'Skills' =>  $request->Skills,
               'customer_id' =>   auth('api')->user()->id,
@@ -244,7 +238,6 @@ class ApiController extends Controller
     {
 
         try {
-
             $DetailUsers = DetailUsers::find($request->id);
             $DetailUsers->fullname =  $request->fullname;
             $DetailUsers->dateofbirth =$request->dateofbirth;
@@ -253,9 +246,6 @@ class ApiController extends Controller
             $DetailUsers->etnics =$request->etnics;
             $DetailUsers->address =  $request->address;
             $DetailUsers->LiveInArea = $request->LiveInArea;
-            $DetailUsers->Education =  $request->Education;
-            $DetailUsers->Organization = $request->Organization;
-            $DetailUsers->JobSpecialist = $request->JobSpecialist;
             $DetailUsers->Skills = $request->Skills;
             $DetailUsers->customer_id =  auth('api')->user()->id;
             $DetailUsers->save();
@@ -292,7 +282,7 @@ class ApiController extends Controller
 
             $UserHistoryJob = UsersHistoryJob::create([
               'jobs_id' =>  $request->jobs_id,
-              'status' =>  1,  // On Review
+              'status' =>  1,  // Complete
                'user_id' => auth('api')->user()->id,
             ]);
 

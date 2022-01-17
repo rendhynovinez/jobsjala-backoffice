@@ -39,6 +39,7 @@ Route::post('profile-create', 'ApiController@profilecreate');
 Route::get('detail-profile', 'ApiController@detailprofile');
 Route::put('profile-update', 'ApiController@profileedit');
 Route::post('applyjob', 'ApiController@applyjob');
+Route::post('send-fcm','ListJobController@sendFcm');
 }); 
 
 

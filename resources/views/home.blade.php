@@ -1,8 +1,6 @@
 
 @include('inc/header')
 
-
-
 <!-- nav -->
 <nav class="bg-blue" role="navigation">
     <div class="nav-wrapper container"><a href="#" class="" id="nav-title">HOME</a>
